@@ -26,3 +26,20 @@ CREATE TABLE "public"."classroom_members"(
         ON UPDATE CASCADE,
     UNIQUE(classroom_id, student_id)
 );
+
+
+
+-- Step 1: Insert a default student
+INSERT INTO public.student (email, name, age)
+VALUES ('default.student@example.com', 'Default Student', 14)
+RETURNING id INTO TEMP TABLE temp_student;
+
+-- Step 2: Insert a default classroom
+INSERT INTO public.classroom (name, key_stage, subject)
+VALUES ('Default Classroom', 'Key Stage 3', 'Mathematics')
+RETURNING id INTO TEMP TABLE temp_classroom;
+
+-- Step 3: Insert into classroom_members to make the student a member
+INSERT INTO public.classroom_members (classroom_id, student_id)
+SELECT temp_classroom.id, temp_student.id
+FROM temp_classroom, temp_student;

@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 import BaseRuntimeModel from "../../models/BaseRuntimeModel";
 import BaseEntity from "../entities/BaseEntity";
 
@@ -12,6 +12,33 @@ export default abstract class BaseRepository<
     return this;
   }
   protected abstract RuntimeToEntity(ent: TRuntime): TEntity;
+
+  public async GetOneAsync<TPropertyType>(
+    val: TPropertyType,
+    propertyName: keyof TEntity
+  ): Promise<TRuntime | undefined | null> {
+    return (
+      await this._repo.findOne({
+        where: {
+          [propertyName]: In(val as any),
+        } as any,
+      })
+    )?.ToRuntimeType();
+  }
+  public async GetManyAsync<T>(
+    val: T,
+    propertyName: keyof TEntity
+  ): Promise<TRuntime[]> {
+    return (
+      (
+        await this._repo.find({
+          where: {
+            [propertyName]: In(val as any),
+          } as any,
+        })
+      )?.map((x) => x.ToRuntimeType()) || []
+    );
+  }
 
   public GetAllAsync(): Promise<TRuntime[]> {
     return this._repo

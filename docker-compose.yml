@@ -10,7 +10,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: ai_trainer
+      POSTGRES_DB: type_orm_demo
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     healthcheck:
