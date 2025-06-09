@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import Student from "../../models/Student";
 import BaseEntity from "./BaseEntity";
 import Guid from "../../Utils/Guid";
+import ClassroomMemberEntity from "./ClassroomMemberEntity";
 
 @Entity({ name: "student" })
 export default class StudentEntity extends BaseEntity<Student> {
@@ -9,7 +10,7 @@ export default class StudentEntity extends BaseEntity<Student> {
   public id!: string;
   @Column({ type: "text" })
   public email!: string;
-  @Column({ type: "name" })
+  @Column({ type: "text" })
   public name!: string;
   @Column({ type: "integer" })
   public age!: number;
@@ -17,7 +18,6 @@ export default class StudentEntity extends BaseEntity<Student> {
   public dateCreated!: Date;
   @Column({ type: "timestamp without time zone" })
   public dateModified!: Date;
-
   public override ToRuntimeType(): Student {
     return new Student(
       Guid.Parse(this.id),

@@ -8,7 +8,7 @@ CREATE TABLE "public"."student" (
 );
 
 
-CREATE TABLE "public"."class"(
+CREATE TABLE "public"."classroom"(
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     "name" TEXT NOT NULL,
     key_stage TEXT NOT NULL,
@@ -16,10 +16,13 @@ CREATE TABLE "public"."class"(
 );
 
 
-CREATE TABLE "public"."class_members"(
+CREATE TABLE "public"."classroom_members"(
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    classroom_id UUID NOT NULL REFERENCES public."classroom"(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
     student_id UUID NOT NULL REFERENCES public."student"(id) 
         ON DELETE CASCADE
-        ON UPDATE CASCADE
-        UNIQUE
+        ON UPDATE CASCADE,
+    UNIQUE(classroom_id, student_id)
 );
