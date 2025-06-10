@@ -1,5 +1,5 @@
 import StudentRepository from "./persistence/repositories/StudentRepository";
-import { dbPublicContextSource } from "./persistence/dbDataSource";
+import { dbPublicContextSource } from "./persistence/dbPublicContextSource";
 import { DataSource, EntityManager } from "typeorm";
 import { DIContainer } from "rsdi";
 import StudentEntity from "./persistence/entities/StudentEntity";
