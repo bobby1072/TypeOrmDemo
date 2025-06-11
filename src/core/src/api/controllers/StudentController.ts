@@ -8,6 +8,7 @@ import Student, {
 } from "../../models/Student";
 import { OutcomeBase } from "../../models/Outcome";
 import Guid from "../../Utils/Guid";
+import { ReturningResultsEntityUpdator } from "typeorm/query-builder/ReturningResultsEntityUpdator.js";
 
 export default class StudentController extends BaseController {
   private readonly _studentRepository: StudentRepository;
@@ -28,6 +29,8 @@ export default class StudentController extends BaseController {
               isSuccess: false,
               exceptionMessage: "Invalid input",
             } as OutcomeBase);
+
+            return;
           }
           const rightNow = new Date();
           const registeredUser = await this._studentRepository.SaveAsync(
