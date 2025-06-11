@@ -3,11 +3,16 @@ import BaseRuntimeModel from "./BaseRuntimeModel";
 import { ZodGuid } from "../Utils/ZodGuid";
 import Guid from "../Utils/Guid";
 
-const studentSchema = z.object({
-  id: ZodGuid(),
+export const studentInputSchema = z.object({
   email: z.string().email(),
   name: z.string(),
   age: z.number().int(),
+});
+
+export type StudentInputType = z.infer<typeof studentInputSchema>;
+
+const studentSchema = studentInputSchema.extend({
+  id: ZodGuid(),
   dateCreated: z.date(),
   dateModified: z.date(),
 });

@@ -15,17 +15,17 @@ export default class StudentEntity extends BaseEntity<Student> {
   @Column({ type: "integer" })
   public age!: number;
   @Column({ type: "timestamp without time zone" })
-  public dateCreated!: Date;
+  public dateCreated!: string;
   @Column({ type: "timestamp without time zone" })
-  public dateModified!: Date;
+  public dateModified!: string;
   public override ToRuntimeType(): Student {
     return new Student(
       Guid.Parse(this.id),
       this.email,
       this.name,
       this.age,
-      this.dateCreated,
-      this.dateModified
+      new Date(this.dateCreated),
+      new Date(this.dateModified)
     );
   }
 }
