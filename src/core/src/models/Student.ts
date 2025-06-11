@@ -1,18 +1,28 @@
-import { AnyZodObject, z, ZodAny } from "zod";
+import { AnyZodObject, z } from "zod";
 import BaseRuntimeModel from "./BaseRuntimeModel";
 import { ZodGuid } from "../Utils/ZodGuid";
 import Guid from "../Utils/Guid";
 
-export const studentInputSchema = z.object({
+export const registerStudentInputSchema = z.object({
   email: z.string().email(),
   name: z.string(),
   age: z.number().int(),
 });
 
-export type StudentInputType = z.infer<typeof studentInputSchema>;
+export type RegisterStudentInputType = z.infer<
+  typeof registerStudentInputSchema
+>;
 
-const studentSchema = studentInputSchema.extend({
+export const updateStudentInputSchema = registerStudentInputSchema.extend({
   id: ZodGuid(),
+  email: z.string().email(),
+  name: z.string(),
+  age: z.number().int(),
+});
+
+export type UpdateStudentInputType = z.infer<typeof updateStudentInputSchema>;
+
+export const studentSchema = registerStudentInputSchema.extend({
   dateCreated: z.date(),
   dateModified: z.date(),
 });
@@ -34,15 +44,15 @@ export default class Student extends BaseRuntimeModel implements StudentType {
     email: string,
     name: string,
     age: number,
-    date_created: Date,
-    date_modified: Date
+    dateCreated: Date,
+    dateModified: Date
   ) {
     super();
     this.id = id;
     this.email = email;
     this.name = name;
     this.age = age;
-    this.dateCreated = date_created;
-    this.dateModified = date_modified;
+    this.dateCreated = dateCreated;
+    this.dateModified = dateModified;
   }
 }

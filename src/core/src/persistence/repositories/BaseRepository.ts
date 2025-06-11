@@ -1,4 +1,4 @@
-import { In, Repository } from "typeorm";
+import { FindOptionsRelations, In, Repository } from "typeorm";
 import BaseRuntimeModel from "../../models/BaseRuntimeModel";
 import BaseEntity from "../entities/BaseEntity";
 
@@ -15,19 +15,22 @@ export default abstract class BaseRepository<
 
   public async GetOneAsync<TPropertyType>(
     val: TPropertyType,
-    propertyName: keyof TEntity
+    propertyName: keyof TEntity,
+    relations?: FindOptionsRelations<TEntity>
   ): Promise<TRuntime | undefined | null> {
     return (
       await this._repo.findOne({
         where: {
           [propertyName]: In(val as any),
         } as any,
+        relations,
       })
     )?.ToRuntimeType();
   }
-  public async GetManyAsync<T>(
-    val: T,
-    propertyName: keyof TEntity
+  public async GetManyAsync<TPropertyType>(
+    val: TPropertyType,
+    propertyName: keyof TEntity,
+    relations?: FindOptionsRelations<TEntity>
   ): Promise<TRuntime[]> {
     return (
       (
@@ -35,6 +38,7 @@ export default abstract class BaseRepository<
           where: {
             [propertyName]: In(val as any),
           } as any,
+          relations,
         })
       )?.map((x) => x.ToRuntimeType()) || []
     );
@@ -51,15 +55,17 @@ export default abstract class BaseRepository<
     return this._repo.createQueryBuilder().getCount();
   }
 
-  public async SaveAsync(run: TRuntime): Promise<TRuntime> {
+  public async SaveAsync(run: TRuntime): Promise<TRuntime | null | undefined> {
     const ent = this.RuntimeToEntity(run);
 
-    return (await this._repo.save(ent)).ToRuntimeType();
+    return (await this._repo.save(ent))?.ToRuntimeType();
   }
 
-  public async DeleteAsync(run: TRuntime): Promise<TRuntime> {
+  public async DeleteAsync(
+    run: TRuntime
+  ): Promise<TRuntime | null | undefined> {
     const ent = this.RuntimeToEntity(run);
 
-    return (await this._repo.remove(ent)).ToRuntimeType();
+    return (await this._repo.remove(ent))?.ToRuntimeType();
   }
 }

@@ -5,6 +5,7 @@ import DependencyContainer from "./Utils/DependencyContainer";
 import StudentController from "./api/controllers/StudentController";
 import compression from "compression";
 import bodyParser from "body-parser";
+import BaseController from "./api/controllers/BaseController";
 
 abstract class Program {
   private static readonly _application: ExpressApplication = express();
@@ -25,7 +26,7 @@ abstract class Program {
     this._application.use(bodyParser.json());
     this._application.use(bodyParser.urlencoded({ extended: true }));
 
-    const controllerArray = [
+    const controllerArray: BaseController[] = [
       diContainer.get(StudentController.name as never) as StudentController,
     ];
 
