@@ -9,6 +9,7 @@ import { DIContainer } from "rsdi";
 import StudentEntity from "../persistence/entities/StudentEntity";
 import ClassroomEntity from "../persistence/entities/ClassroomEntity";
 import ClassroomMemberEntity from "../persistence/entities/ClassroomMemberEntity";
+import ClassroomController from "../api/controllers/ClassroomController";
 
 export default class DependencyContainer extends DIContainer<{
   [DataSource.name]: DataSource;
@@ -18,6 +19,7 @@ export default class DependencyContainer extends DIContainer<{
   [ClassroomRepository.name]: ClassroomRepository;
   ["Application"]: Application;
   [StudentController.name]: StudentController;
+  [ClassroomController.name]: ClassroomController;
 }> {
   public constructor(dSource: DataSource, app: Application) {
     super();
@@ -65,6 +67,23 @@ export default class DependencyContainer extends DIContainer<{
         return new StudentController(
           Application,
           studentRepo as StudentRepository
+        );
+      }
+    );
+
+    this.add(
+      ClassroomController.name as never,
+      ({
+        Application,
+        [StudentRepository.name]: studentRepo,
+        [ClassroomRepository.name]: classRepo,
+        [ClassroomMemberRepository.name]: classMemberRepo,
+      }) => {
+        return new ClassroomController(
+          Application,
+          studentRepo as StudentRepository,
+          classRepo as ClassroomRepository,
+          classMemberRepo as ClassroomMemberRepository
         );
       }
     );

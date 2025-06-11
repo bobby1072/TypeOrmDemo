@@ -6,6 +6,7 @@ import StudentController from "./api/controllers/StudentController";
 import compression from "compression";
 import bodyParser from "body-parser";
 import BaseController from "./api/controllers/BaseController";
+import ClassroomController from "./api/controllers/ClassroomController";
 
 abstract class Program {
   private static readonly _application: ExpressApplication = express();
@@ -28,6 +29,7 @@ abstract class Program {
 
     const controllerArray: BaseController[] = [
       diContainer.get(StudentController.name as never) as StudentController,
+      diContainer.get(ClassroomController.name as never) as ClassroomController,
     ];
 
     controllerArray.forEach((x) => {
