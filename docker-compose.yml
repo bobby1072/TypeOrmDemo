@@ -3,7 +3,7 @@ volumes:
 
 services:
   postgres:
-    container_name: ai-trainer.db
+    container_name: type-orm-demo.db
     image: postgres:17-alpine
     ports:
       - 5560:5432

@@ -12,8 +12,8 @@ export default class StudentRepository extends BaseRepository<
     ent.name = runtime.name;
     ent.email = runtime.email;
     ent.age = runtime.age;
-    ent.dateCreated = runtime.dateCreated;
-    ent.dateModified = runtime.dateModified;
+    ent.dateCreated = runtime.dateCreated.toISOString();
+    ent.dateModified = runtime.dateModified.toISOString();
 
     return ent;
   }

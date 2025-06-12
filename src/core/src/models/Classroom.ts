@@ -18,11 +18,18 @@ export enum ClassroomSubjectEnum {
   Geography = "GEOGRAPHY",
 }
 
-const classroomSchema = z.object({
-  id: ZodGuid(),
+export const classRoomCreateInputSchema = z.object({
   name: z.string(),
   keyStage: z.nativeEnum(ClassroomKeyStageEnum),
   subject: z.nativeEnum(ClassroomSubjectEnum),
+});
+
+export type ClassRoomCreateInputType = z.infer<
+  typeof classRoomCreateInputSchema
+>;
+
+const classroomSchema = classRoomCreateInputSchema.extend({
+  id: ZodGuid(),
 });
 
 export type ClassroomType = z.infer<typeof classroomSchema>;

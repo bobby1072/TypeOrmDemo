@@ -4,10 +4,13 @@ import BaseRuntimeModel from "./BaseRuntimeModel";
 import Guid from "../Utils/Guid";
 import Student from "./Student";
 
-const classroomMemberSchema = z.object({
-  id: z.number().int(),
+export const classroomMemberCreateInputSchema = z.object({
   classroomId: ZodGuid(),
   studentId: ZodGuid(),
+});
+
+const classroomMemberSchema = classroomMemberCreateInputSchema.extend({
+  id: z.number().int().optional().nullable(),
 });
 
 export type ClassroomMemberType = z.infer<typeof classroomMemberSchema>;
@@ -18,12 +21,12 @@ export default class ClassroomMember
 {
   protected override readonly _schema: z.AnyZodObject = classroomMemberSchema;
 
-  public id: number;
+  public id?: number | null;
   public studentId: Guid;
   public classroomId: Guid;
   public student?: Student | null;
   public constructor(
-    id: number,
+    id: number | null | undefined,
     studentId: Guid,
     classroomId: Guid,
     student?: Student | null
@@ -32,5 +35,6 @@ export default class ClassroomMember
     this.id = id;
     this.studentId = studentId;
     this.classroomId = classroomId;
+    this.student = student;
   }
 }

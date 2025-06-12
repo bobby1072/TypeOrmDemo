@@ -11,7 +11,9 @@ export default class ClassroomMemberRepository extends BaseRepository<
   ): ClassroomMemberEntity {
     const ent = new ClassroomMemberEntity();
 
-    ent.id = runtime.id;
+    if (runtime.id) {
+      ent.id = runtime.id;
+    }
     ent.classroomId = runtime.classroomId.toString();
     ent.studentId = runtime.studentId.toString();
 
