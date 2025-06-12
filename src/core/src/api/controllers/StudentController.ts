@@ -69,10 +69,9 @@ export default class StudentController extends BaseController {
 
             return;
           }
-          const foundStudent = await this._studentRepository.GetOneAsync(
-            parsedInput.data.id,
-            "id"
-          );
+          const foundStudent = await this._studentRepository.GetOneAsync({
+            id: parsedInput.data.id.toString(),
+          });
 
           if (!foundStudent) {
             resp.status(400).send({
@@ -123,10 +122,9 @@ export default class StudentController extends BaseController {
 
             return;
           }
-          const foundStudent = await this._studentRepository.GetOneAsync(
-            parsedInput,
-            "id"
-          );
+          const foundStudent = await this._studentRepository.GetOneAsync({
+            id: parsedInput.toString(),
+          });
 
           if (!foundStudent) {
             resp.status(400).send({

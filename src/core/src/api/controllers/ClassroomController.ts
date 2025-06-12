@@ -77,10 +77,9 @@ export default class ClassroomController extends BaseController {
 
             return;
           }
-          const foundClass = await this._classroomRepository.GetOneAsync(
-            parsedInput,
-            "id"
-          );
+          const foundClass = await this._classroomRepository.GetOneAsync({
+            id: parsedInput.toString(),
+          });
 
           if (!foundClass) {
             resp.status(400).send({
@@ -123,14 +122,12 @@ export default class ClassroomController extends BaseController {
             return;
           }
           const [foundClass, foundStudent] = await Promise.all([
-            this._classroomRepository.GetOneAsync(
-              parsedInput.data.classroomId,
-              "id"
-            ),
-            this._studentRepository.GetOneAsync(
-              parsedInput.data.studentId,
-              "id"
-            ),
+            this._classroomRepository.GetOneAsync({
+              id: parsedInput.data.classroomId.toString(),
+            }),
+            this._studentRepository.GetOneAsync({
+              id: parsedInput.data.studentId.toString(),
+            }),
           ]);
 
           if (!foundClass || !foundStudent) {
