@@ -1,7 +1,7 @@
 import { dbPublicContextSource } from "./persistence/dbPublicContextSource";
 import MigrationService from "./persistence/MigrationService";
 import express, { Application as ExpressApplication } from "express";
-import DependencyContainer from "./Utils/DependencyContainer";
+import DependencyContainer from "./utils/DependencyContainer";
 import StudentController from "./api/controllers/StudentController";
 import compression from "compression";
 import bodyParser from "body-parser";

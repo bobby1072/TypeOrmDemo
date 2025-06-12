@@ -5,7 +5,7 @@ import {
   ClassroomSubjectEnum,
 } from "../../models/Classroom";
 import BaseEntity from "./BaseEntity";
-import Guid from "../../Utils/Guid";
+import Guid from "../../utils/Guid";
 import ClassroomMemberEntity from "./ClassroomMemberEntity";
 
 @Entity({ name: "classroom" })

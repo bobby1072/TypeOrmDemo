@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 import Student from "../../models/Student";
 import BaseEntity from "./BaseEntity";
-import Guid from "../../Utils/Guid";
+import Guid from "../../utils/Guid";
 import ClassroomMemberEntity from "./ClassroomMemberEntity";
 
 @Entity({ name: "student" })

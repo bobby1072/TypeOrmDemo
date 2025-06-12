@@ -1,7 +1,7 @@
 import { AnyZodObject, z } from "zod";
 import BaseRuntimeModel from "./BaseRuntimeModel";
-import { ZodGuid } from "../Utils/ZodGuid";
-import Guid from "../Utils/Guid";
+import { ZodGuid } from "../utils/ZodGuid";
+import Guid from "../utils/Guid";
 
 export const registerStudentInputSchema = z.object({
   email: z.string().email(),
@@ -22,7 +22,7 @@ export const updateStudentInputSchema = registerStudentInputSchema.extend({
 
 export type UpdateStudentInputType = z.infer<typeof updateStudentInputSchema>;
 
-export const studentSchema = registerStudentInputSchema.extend({
+export const studentSchema = updateStudentInputSchema.extend({
   dateCreated: z.date(),
   dateModified: z.date(),
 });

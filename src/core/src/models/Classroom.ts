@@ -1,7 +1,7 @@
 import { AnyZodObject, z } from "zod";
-import { ZodGuid } from "../Utils/ZodGuid";
+import { ZodGuid } from "../utils/ZodGuid";
 import BaseRuntimeModel from "./BaseRuntimeModel";
-import Guid from "../Utils/Guid";
+import Guid from "../utils/Guid";
 import ClassroomMember from "./ClassroomMember";
 
 export enum ClassroomKeyStageEnum {

@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { ZodGuid } from "../Utils/ZodGuid";
+import { ZodGuid } from "../utils/ZodGuid";
 import BaseRuntimeModel from "./BaseRuntimeModel";
-import Guid from "../Utils/Guid";
+import Guid from "../utils/Guid";
 import Student from "./Student";
 
 export const classroomMemberCreateInputSchema = z.object({
