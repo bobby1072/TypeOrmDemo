@@ -16,19 +16,4 @@ export default class ClassroomRepository extends BaseRepository<
 
     return ent;
   }
-
-  // public override async GetOneAsync<TPropertyType>(
-  //   val: TPropertyType,
-  //   propertyName: keyof ClassroomEntity,
-  //   relations?: FindOptionsRelations<ClassroomEntity>
-  // ): Promise<Classroom | undefined | null> {
-  //   return (
-  //     await this._repo.findOne({
-  //       where: {
-  //         [propertyName]: In(val as any),
-  //       } as any,
-  //       relations,
-  //     })
-  //   )?.ToRuntimeType();
-  // }
 }
