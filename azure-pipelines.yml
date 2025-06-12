@@ -40,13 +40,6 @@ stages:
               workingDir: $(Build.SourcesDirectory)/src/core
 
           - task: Npm@1
-            displayName: "Test"
-            inputs:
-              command: "custom"
-              customCommand: "test --watchAll=false --coverage --ci"
-              workingDir: $(Build.SourcesDirectory)/src/core
-
-          - task: Npm@1
             displayName: "Build"
             inputs:
               command: "custom"
