@@ -1,0 +1,55 @@
+trigger:
+  branches:
+    include:
+      - master
+
+pr:
+  branches:
+    include:
+      - "master"
+      - "feature/*"
+      - "hotfix/*"
+      - "bugfix/*"
+
+pool:
+  vmImage: "ubuntu-latest"
+
+
+stages:
+  - stage: BuildStage
+    jobs:
+      - job: Build
+        displayName: "Build core api"
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: 22.x
+
+          - task: Npm@1
+            displayName: "NPM install"
+            inputs:
+              command: "custom"
+              customCommand: "ci"
+              workingDir: $(Build.SourcesDirectory)/src/core
+
+          - task: Npm@1
+            displayName: "Check types"
+            inputs:
+              commands: "custom"
+              customCommand: "run check-types"
+              workingDir: $(Build.SourcesDirectory)/src/core
+
+          - task: Npm@1
+            displayName: "Test"
+            inputs:
+              command: "custom"
+              customCommand: "test --watchAll=false --coverage --ci"
+              workingDir: $(Build.SourcesDirectory)/src/core
+
+          - task: Npm@1
+            displayName: "Build"
+            inputs:
+              command: "custom"
+              customCommand: "run build"
+              workingDir: $(Build.SourcesDirectory)/src/core
+
