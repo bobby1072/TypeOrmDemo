@@ -28,7 +28,7 @@ export type ClassRoomCreateInputType = z.infer<
   typeof classRoomCreateInputSchema
 >;
 
-const classroomSchema = classRoomCreateInputSchema.extend({
+export const classroomSchema = classRoomCreateInputSchema.extend({
   id: ZodGuid(),
 });
 
