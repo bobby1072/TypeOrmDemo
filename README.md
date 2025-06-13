@@ -127,7 +127,7 @@ Database connection is configured in `src/persistence/dbPublicContextSource.ts`
 
   ```json
   {
-    "id": "guid-here",
+    "id": "<EXISTING_STUDENT_ID>",
     "email": "updated@example.com",
     "name": "Updated Name",
     "age": 21
@@ -137,7 +137,7 @@ Database connection is configured in `src/persistence/dbPublicContextSource.ts`
 - **POST** `/api/Student/Delete`
   ```json
   {
-    "id": "guid-here"
+    "id": "<EXISTING_STUDENT_ID>"
   }
   ```
 
@@ -157,7 +157,7 @@ Database connection is configured in `src/persistence/dbPublicContextSource.ts`
 
   ```json
   {
-    "id": "guid-here",
+    "id": "<EXISTING_CLASSROOM_ID>",
     "name": "Updated Classroom",
     "subject": "ENGLISH",
     "keyStage": "KS3"
@@ -167,7 +167,7 @@ Database connection is configured in `src/persistence/dbPublicContextSource.ts`
 - **POST** `/api/Classroom/Delete`
   ```json
   {
-    "id": "guid-here"
+    "id": "<EXISTING_CLASSROOM_ID>"
   }
   ```
 
@@ -185,9 +185,6 @@ npm start
 
 # Build and start
 npm run build-start
-
-# Run tests
-npm test
 
 # Debug mode
 npm run debug:start
@@ -235,29 +232,11 @@ docker-compose down
 docker-compose logs postgres
 ```
 
-## 🧪 Testing
-
-Run the test suite:
-
-```bash
-npm test
-```
-
-Tests are configured with Jest and can be found in the test directories.
-
 ## 📝 Environment Variables
 
 - **PORT**: Server port (default: 5000)
 - **NODE_ENV**: Environment mode (development/production/test)
 - **DEBUG**: Express debug mode
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
 
 ## 📄 License
 
@@ -272,5 +251,4 @@ This project is licensed under the ISC License.
 - **Zod** - Schema validation
 - **RSDI** - Dependency injection
 - **Docker** - Containerization
-- **Jest** - Testing framework
 - **Nodemon** - Development auto-reload
