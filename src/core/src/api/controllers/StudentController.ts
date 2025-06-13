@@ -3,10 +3,11 @@ import BaseController from "./BaseController";
 import StudentRepository from "../../persistence/repositories/StudentRepository";
 import Student, {
   registerStudentInputSchema,
+  StudentType,
   updateStudentInputSchema,
 } from "../../models/Student";
 import { Outcome, OutcomeBase } from "../../models/Outcome";
-import Guid from "../../Utils/Guid";
+import Guid from "../../utils/Guid";
 
 export default class StudentController extends BaseController {
   private readonly _studentRepository: StudentRepository;
@@ -43,8 +44,13 @@ export default class StudentController extends BaseController {
           );
 
           resp.status(200).send({
-            data: registeredUser,
-          } as Outcome<Student>);
+            isSuccess: true,
+            data: {
+              ...registeredUser,
+              id: registeredUser?.id.toString(),
+              _schema: undefined,
+            },
+          });
         } catch (e) {
           resp.status(500).send({
             isSuccess: false,
@@ -95,8 +101,13 @@ export default class StudentController extends BaseController {
           );
 
           resp.status(200).send({
-            data: updatedUser,
-          } as Outcome<Student>);
+            isSuccess: true,
+            data: {
+              ...updatedUser,
+              id: updatedUser?.id.toString(),
+              _schema: undefined,
+            },
+          });
         } catch (e) {
           resp.status(500).send({
             isSuccess: false,
@@ -138,6 +149,7 @@ export default class StudentController extends BaseController {
             foundStudent
           );
           resp.status(200).send({
+            isSuccess: true,
             data: deletedStudent?.id.toString(),
           } as Outcome<string>);
         } catch (e) {

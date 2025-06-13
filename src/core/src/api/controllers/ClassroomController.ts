@@ -5,7 +5,7 @@ import StudentRepository from "../../persistence/repositories/StudentRepository"
 import BaseController from "./BaseController";
 import { Classroom, classRoomCreateInputSchema } from "../../models/Classroom";
 import { Outcome, OutcomeBase } from "../../models/Outcome";
-import Guid from "../../Utils/Guid";
+import Guid from "../../utils/Guid";
 import ClassroomMember, {
   classroomMemberCreateInputSchema,
 } from "../../models/ClassroomMember";
@@ -51,8 +51,13 @@ export default class ClassroomController extends BaseController {
           );
 
           resp.status(200).send({
-            data: registeredClass,
-          } as Outcome<Classroom>);
+            isSuccess: true,
+            data: {
+              ...registeredClass,
+              id: registeredClass?.id.toString(),
+              _schema: undefined,
+            },
+          });
         } catch (e) {
           resp.status(500).send({
             isSuccess: false,
@@ -149,8 +154,14 @@ export default class ClassroomController extends BaseController {
             );
 
           resp.status(200).send({
-            data: registeredClassMember,
-          } as Outcome<Classroom>);
+            isSuccess: true,
+            data: {
+              ...registeredClassMember,
+              studentId: registeredClassMember?.studentId?.toString(),
+              classroomId: registeredClassMember?.classroomId?.toString(),
+              _schema: undefined,
+            },
+          });
         } catch (e) {
           resp.status(500).send({
             isSuccess: false,

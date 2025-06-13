@@ -7,6 +7,6 @@ export default abstract class BaseRuntimeModel {
   }
 
   public Serialise(): string {
-    return JSON.stringify(this);
+    return JSON.stringify({ ...this, _schema: undefined });
   }
 }

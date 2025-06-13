@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import ClassroomMember from "../../models/ClassroomMember";
 import BaseEntity from "./BaseEntity";
-import Guid from "../../Utils/Guid";
+import Guid from "../../utils/Guid";
 import ClassroomEntity from "./ClassroomEntity";
 import StudentEntity from "./StudentEntity";
 
